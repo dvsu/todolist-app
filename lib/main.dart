@@ -4,12 +4,9 @@ import 'package:todolist_app/routes.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  runApp(TodoListApp());
-}
+void main() => runApp(TodoListApp());
 
 class TodoListApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
