@@ -28,10 +28,10 @@ class TaskCard extends StatelessWidget {
               ? [Color(0x33121212), Color(0x33121212)]
               : (taskColor == null)
                   ? [
-                      TaskColors.grey.primaryColor,
+                      TaskColors.grey.shadowColor,
                       TaskColors.grey.highlightColor
                     ]
-                  : [taskColor!.primaryColor, taskColor!.highlightColor],
+                  : [taskColor!.shadowColor, taskColor!.highlightColor],
           stops: [
             0.9,
             0.9,

@@ -5,8 +5,17 @@ import 'package:todolist_app/widgets/tasks_list.dart';
 import 'package:todolist_app/theme/decoration.dart';
 import 'package:todolist_app/theme/text_style.dart';
 import 'package:todolist_app/screens/add_task_screen.dart';
+import 'package:todolist_app/data/tasks.dart';
+import 'package:todolist_app/model/task.dart';
 
-class TaskScreen extends StatelessWidget {
+class TaskScreen extends StatefulWidget {
+  @override
+  _TaskScreenState createState() => _TaskScreenState();
+}
+
+class _TaskScreenState extends State<TaskScreen> {
+  List<Task> tasks = Tasks.tasks;
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil().setWidth(MediaQuery.of(context).size.width);
@@ -35,7 +44,7 @@ class TaskScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                flex: 0.1.sh.toInt(),
+                flex: 0.075.sh.toInt(),
                 child: Padding(
                   padding: EdgeInsets.only(left: 0.05.sw),
                   child: CircleAvatar(
@@ -61,9 +70,23 @@ class TaskScreen extends StatelessWidget {
                 ),
               ),
               Expanded(
-                flex: 0.075.sh.toInt(),
+                flex: 0.04.sh.toInt(),
                 child: Padding(
                   padding: EdgeInsets.only(left: 0.05.sw, top: 0.005.sh),
+                  child: Container(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      '12 tasks completed',
+                      textAlign: TextAlign.left,
+                      style: taskTrackerTextStyle,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 0.04.sh.toInt(),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 0.05.sw, bottom: 0.005.sh),
                   child: Container(
                     alignment: Alignment.topLeft,
                     child: Text(
@@ -78,7 +101,10 @@ class TaskScreen extends StatelessWidget {
                 flex: 0.75.sh.toInt(),
                 child: Container(
                   decoration: tasksListDecoration,
-                  child: TasksList(),
+                  child: TasksList(
+                    tasks: tasks,
+                    //onPressed:
+                  ),
                 ),
               ),
             ],
