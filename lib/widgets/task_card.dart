@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todolist_app/theme/text_style.dart';
 
-class TaskCard extends StatelessWidget {
+class TaskCard extends StatefulWidget {
   final String taskTitle;
   final String taskSubtitle;
   final List<Color> taskColor;
@@ -16,13 +16,20 @@ class TaskCard extends StatelessWidget {
       ]});
 
   @override
+  _TaskCardState createState() => _TaskCardState();
+}
+
+class _TaskCardState extends State<TaskCard> {
+  bool isChecked = false;
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: 0.005.sh),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(0.03.sw),
         gradient: LinearGradient(
-          colors: taskColor,
+          colors: widget.taskColor,
           stops: [
             0.9,
             0.9,
@@ -38,18 +45,48 @@ class TaskCard extends StatelessWidget {
             left: 0.01.sw, right: 0.1.sw, top: 0.006.sh, bottom: 0.006.sh),
         dense: true,
         title: Text(
-          taskTitle,
+          widget.taskTitle,
           style: taskTitleTextStyle,
         ),
-        subtitle: (taskSubtitle == '')
+        subtitle: (widget.taskSubtitle == '')
             ? null
-            : Text(taskSubtitle, maxLines: 2, style: taskSubtitleTextStyle),
-        leading: Checkbox(
-          checkColor: Color(0xffffffff),
-          value: false,
-          onChanged: (value) {},
+            : Text(
+                widget.taskSubtitle,
+                maxLines: 2,
+                style: taskSubtitleTextStyle,
+              ),
+        leading: TaskCardCheckBox(
+          checkedColor: widget.taskColor[1],
+          isChecked: isChecked,
+          onPressed: (bool? updatedState) {
+            setState(() {
+              print(updatedState);
+              isChecked = updatedState ?? false;
+            });
+          },
         ),
       ),
+    );
+  }
+}
+
+class TaskCardCheckBox extends StatelessWidget {
+  final bool isChecked;
+  final Function(bool?) onPressed;
+  final Color checkedColor;
+
+  TaskCardCheckBox({
+    required this.isChecked,
+    required this.onPressed,
+    required this.checkedColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Checkbox(
+      activeColor: checkedColor,
+      value: isChecked,
+      onChanged: onPressed,
     );
   }
 }
