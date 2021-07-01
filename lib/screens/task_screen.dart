@@ -15,6 +15,8 @@ class TaskScreen extends StatefulWidget {
 
 class _TaskScreenState extends State<TaskScreen> {
   List<Task> tasks = Tasks.tasks;
+  int? taskCompleted = 0;
+  int? taskRemaining = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +82,7 @@ class _TaskScreenState extends State<TaskScreen> {
                   child: Container(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      '12 tasks completed',
+                      '$taskCompleted tasks completed',
                       textAlign: TextAlign.left,
                       style: taskTrackerTextStyle,
                     ),
@@ -94,7 +96,7 @@ class _TaskScreenState extends State<TaskScreen> {
                   child: Container(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      '12 tasks remaining',
+                      '$taskRemaining tasks remaining',
                       textAlign: TextAlign.left,
                       style: taskTrackerTextStyle,
                     ),
@@ -107,6 +109,13 @@ class _TaskScreenState extends State<TaskScreen> {
                   decoration: tasksListDecoration,
                   child: TasksList(
                     tasks: tasks,
+                    taskTrackerCallback: (trackedTasks) {
+                      taskCompleted = trackedTasks['completed'];
+                      taskRemaining = trackedTasks['remaining'];
+                      if (trackedTasks['initialized'] == true) {
+                        setState(() {});
+                      }
+                    },
                     //onPressed:
                   ),
                 ),

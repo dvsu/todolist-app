@@ -29,6 +29,21 @@ const BoxDecoration tasksListDecoration = BoxDecoration(
   ],
 );
 
+const BoxDecoration innerTasksListDecoration = BoxDecoration(
+  color: Colors.white,
+  borderRadius: BorderRadius.only(
+    topLeft: Radius.circular(20.0),
+    topRight: Radius.circular(20.0),
+  ),
+  boxShadow: [
+    BoxShadow(
+      color: Color(0x22121212),
+      blurRadius: 2.0,
+      spreadRadius: 1.0,
+    ),
+  ],
+);
+
 const BoxDecoration taskBottomSheetDecoration = BoxDecoration(
   color: Colors.white,
   borderRadius: BorderRadius.only(

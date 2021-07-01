@@ -1,20 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todolist_app/widgets/task_card.dart';
-import 'package:todolist_app/model/task_color.dart';
 import 'package:todolist_app/model/task.dart';
 
 class TasksList extends StatefulWidget {
   final List<Task> tasks;
-  //final Function(bool?, int) onPressed;
+  final Function(Map<String, dynamic>) taskTrackerCallback;
 
-  TasksList({required this.tasks});
+  TasksList({required this.tasks, required this.taskTrackerCallback});
 
   @override
   _TasksListState createState() => _TasksListState();
 }
 
 class _TasksListState extends State<TasksList> {
+  int taskCompleted = 0;
+  int taskRemaining = 0;
+  bool initialized = false;
+
+  @override
+  void initState() {
+    super.initState();
+    for (Task task in widget.tasks) {
+      if (task.isTaskCompleted == true) {
+        taskCompleted += 1;
+      } else {
+        taskRemaining += 1;
+      }
+    }
+    widget.taskTrackerCallback({
+      'completed': taskCompleted,
+      'remaining': taskRemaining,
+      'initialized': initialized
+    });
+    initialized = true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,6 +51,18 @@ class _TasksListState extends State<TasksList> {
               setState(
                 () {
                   widget.tasks[index].isTaskCompleted = updatedState ?? false;
+                  if (updatedState == true) {
+                    taskCompleted += 1;
+                    taskRemaining -= 1;
+                  } else {
+                    taskCompleted -= 1;
+                    taskRemaining += 1;
+                  }
+                  widget.taskTrackerCallback({
+                    'completed': taskCompleted,
+                    'remaining': taskRemaining,
+                    'initialized': initialized
+                  });
                 },
               );
             },
