@@ -1,26 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todolist_app/theme/text_style.dart';
+import 'package:todolist_app/model/task_color.dart';
 
-class TaskCard extends StatefulWidget {
+class TaskCard extends StatelessWidget {
   final String taskTitle;
-  final String taskSubtitle;
-  final List<Color> taskColor;
+  final String? taskSubtitle;
+  final TaskColor? taskColor;
+  final Function(bool?) onPressed;
+  final bool isChecked;
 
   TaskCard(
       {required this.taskTitle,
-      this.taskSubtitle = '',
-      this.taskColor = const [
-        Color(0x11818181),
-        Color(0xdd818181),
-      ]});
-
-  @override
-  _TaskCardState createState() => _TaskCardState();
-}
-
-class _TaskCardState extends State<TaskCard> {
-  bool isChecked = false;
+      this.taskSubtitle,
+      this.taskColor,
+      required this.isChecked,
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +24,14 @@ class _TaskCardState extends State<TaskCard> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(0.03.sw),
         gradient: LinearGradient(
-          colors: widget.taskColor,
+          colors: isChecked
+              ? [Color(0x33121212), Color(0x33121212)]
+              : (taskColor == null)
+                  ? [
+                      TaskColors.grey.primaryColor,
+                      TaskColors.grey.highlightColor
+                    ]
+                  : [taskColor!.primaryColor, taskColor!.highlightColor],
           stops: [
             0.9,
             0.9,
@@ -45,48 +47,28 @@ class _TaskCardState extends State<TaskCard> {
             left: 0.01.sw, right: 0.1.sw, top: 0.006.sh, bottom: 0.006.sh),
         dense: true,
         title: Text(
-          widget.taskTitle,
-          style: taskTitleTextStyle,
+          taskTitle,
+          style: isChecked
+              ? checkedTaskTitleTextStyle
+              : uncheckedTaskTitleTextStyle,
         ),
-        subtitle: (widget.taskSubtitle == '')
+        subtitle: (taskSubtitle == null)
             ? null
             : Text(
-                widget.taskSubtitle,
+                taskSubtitle ?? '',
                 maxLines: 2,
-                style: taskSubtitleTextStyle,
+                style: isChecked
+                    ? checkedTaskSubtitleTextStyle
+                    : uncheckedTaskSubtitleTextStyle,
               ),
-        leading: TaskCardCheckBox(
-          checkedColor: widget.taskColor[1],
-          isChecked: isChecked,
-          onPressed: (bool? updatedState) {
-            setState(() {
-              print(updatedState);
-              isChecked = updatedState ?? false;
-            });
-          },
+        leading: Checkbox(
+          activeColor: (taskColor == null)
+              ? TaskColors.grey.highlightColor
+              : taskColor!.highlightColor,
+          value: isChecked,
+          onChanged: onPressed,
         ),
       ),
-    );
-  }
-}
-
-class TaskCardCheckBox extends StatelessWidget {
-  final bool isChecked;
-  final Function(bool?) onPressed;
-  final Color checkedColor;
-
-  TaskCardCheckBox({
-    required this.isChecked,
-    required this.onPressed,
-    required this.checkedColor,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Checkbox(
-      activeColor: checkedColor,
-      value: isChecked,
-      onChanged: onPressed,
     );
   }
 }
