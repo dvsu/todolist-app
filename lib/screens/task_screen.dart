@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:todolist_app/widgets/task_card.dart';
-import 'package:todolist_app/theme/task_color.dart';
+import 'package:todolist_app/widgets/tasks_list.dart';
 import 'package:todolist_app/theme/decoration.dart';
+import 'package:todolist_app/theme/text_style.dart';
 
 class TaskScreen extends StatelessWidget {
   const TaskScreen({Key? key}) : super(key: key);
@@ -45,12 +45,7 @@ class TaskScreen extends StatelessWidget {
                     alignment: Alignment.bottomLeft,
                     child: Text(
                       'TODO LIST',
-                      style: TextStyle(
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Barlow',
-                        color: Colors.white,
-                      ),
+                      style: appTitleTextStyle,
                     ),
                   ),
                 ),
@@ -64,12 +59,7 @@ class TaskScreen extends StatelessWidget {
                     child: Text(
                       '12 tasks remaining',
                       textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'Barlow',
-                        color: Colors.white,
-                      ),
+                      style: taskTrackerTextStyle,
                     ),
                   ),
                 ),
@@ -77,45 +67,8 @@ class TaskScreen extends StatelessWidget {
               Expanded(
                 flex: 0.75.sh.toInt(),
                 child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20.0),
-                      topRight: Radius.circular(20.0),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0x22121212),
-                        blurRadius: 2.0,
-                        spreadRadius: 1.0,
-                      ),
-                    ],
-                  ),
-                  child: ListView(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 0.02.sw, vertical: 0.011.sh),
-                    children: [
-                      TaskCard(
-                        taskTitle: 'Lorem ipsum dolor sit amet',
-                        taskSubtitle:
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed leo luctus, commodo enim varius, ullamcorper neque. Vivamus ac arcu odio. Donec volutpat tempus elit, ac iaculis elit iaculis non.',
-                      ),
-                      TaskCard(
-                        taskTitle: 'My task 2',
-                        taskSubtitle:
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                        taskColor: TaskColor.cyan,
-                      ),
-                      TaskCard(
-                        taskTitle: 'My task 3',
-                        taskColor: TaskColor.orange,
-                      ),
-                      TaskCard(
-                        taskTitle: 'My task 4',
-                        taskColor: TaskColor.purple,
-                      ),
-                    ],
-                  ),
+                  decoration: tasksListBackground,
+                  child: TasksList(),
                 ),
               ),
             ],

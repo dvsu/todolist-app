@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:todolist_app/theme/text_style.dart';
 
 class TaskCard extends StatelessWidget {
   final String taskTitle;
@@ -38,11 +39,7 @@ class TaskCard extends StatelessWidget {
         dense: true,
         title: Text(
           taskTitle,
-          style: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Barlow',
-          ),
+          style: taskTitleTextStyle,
         ),
         subtitle: (taskSubtitle == '')
             ? null
