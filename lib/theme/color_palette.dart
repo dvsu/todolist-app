@@ -11,3 +11,9 @@ const List<Color> backgroundColor = [
   themeColor2,
   themeColor3,
 ];
+
+// Bottomsheet
+const Color bottomSheetTitleTextColor = themeColor2;
+
+const Color bottomSheetButtonColor = themeColor2;
+const Color bottomInsetTextFieldCursorColor = themeColor2;

@@ -4,22 +4,25 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todolist_app/widgets/tasks_list.dart';
 import 'package:todolist_app/theme/decoration.dart';
 import 'package:todolist_app/theme/text_style.dart';
+import 'package:todolist_app/screens/add_task_screen.dart';
 
 class TaskScreen extends StatelessWidget {
-  const TaskScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     ScreenUtil().setWidth(MediaQuery.of(context).size.width);
     ScreenUtil().setHeight(MediaQuery.of(context).size.height);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+              context: context, builder: (context) => AddTaskScreen());
+        },
         backgroundColor: Color(0xff6C41E4),
         child: Icon(Icons.add_rounded),
       ),
       body: Container(
-        decoration: mainBackground,
+        decoration: taskScreenDecoration,
         child: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +70,7 @@ class TaskScreen extends StatelessWidget {
               Expanded(
                 flex: 0.75.sh.toInt(),
                 child: Container(
-                  decoration: tasksListBackground,
+                  decoration: tasksListDecoration,
                   child: TasksList(),
                 ),
               ),

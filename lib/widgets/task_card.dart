@@ -43,15 +43,7 @@ class TaskCard extends StatelessWidget {
         ),
         subtitle: (taskSubtitle == '')
             ? null
-            : Text(
-                taskSubtitle,
-                maxLines: 2,
-                style: TextStyle(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Barlow',
-                ),
-              ),
+            : Text(taskSubtitle, maxLines: 2, style: taskSubtitleTextStyle),
         leading: Checkbox(
           checkColor: Color(0xffffffff),
           value: false,
