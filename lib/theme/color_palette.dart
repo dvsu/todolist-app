@@ -6,6 +6,9 @@ const Color themeColor3 = Color(0xffFE9B38);
 const Color themeColor4 = Color(0xffffffff);
 const Color themeColor5 = Color(0xff818181);
 
+// light theme
+const Color lightHintColor = Color(0xff6C41E4);
+
 const List<Color> backgroundColor = [
   themeColor1,
   themeColor2,

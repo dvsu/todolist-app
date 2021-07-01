@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:todolist_app/theme/themes.dart';
 import 'package:todolist_app/routes.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:provider/provider.dart';
@@ -21,10 +22,7 @@ class TodoListApp extends StatelessWidget {
         },
         debugShowCheckedModeBanner: false,
         title: 'ToDoList App',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          //textTheme: TextTheme(button: TextStyle(fontSize: 45.sp)),
-        ),
+        theme: customLightThemeData(),
         initialRoute: '/',
         routes: routes,
       ),

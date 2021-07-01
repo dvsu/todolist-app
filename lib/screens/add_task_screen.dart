@@ -13,32 +13,31 @@ class AddTaskScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 0.1.sw, vertical: 0.03.sh),
         decoration: taskBottomSheetDecoration,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
               'Add Task',
+              textAlign: TextAlign.center,
               style: bottomSheetTitleTextStyle,
             ),
             TextField(
               autofocus: true,
+              textAlign: TextAlign.center,
               cursorColor: bottomInsetTextFieldCursorColor,
-              decoration: InputDecoration(
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: bottomInsetTextFieldCursorColor,
-                  ),
-                ),
-              ),
             ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('Add'),
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all(bottomSheetButtonColor),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
+            Padding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: 0.0.sw, vertical: 0.02.sh),
+              child: ElevatedButton(
+                onPressed: () {},
+                child: Text('Add'),
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(bottomSheetButtonColor),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
                   ),
                 ),
               ),
