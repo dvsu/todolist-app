@@ -1,8 +1,12 @@
 import 'package:todolist_app/model/task.dart';
 import 'package:todolist_app/model/task_color.dart';
+import 'package:flutter/foundation.dart';
 
-class Tasks {
-  static List<Task> tasks = [
+class Tasks extends ChangeNotifier {
+  int remainingTask = 0;
+  int completedTask = 0;
+
+  List<Task> tasks = [
     Task(
       taskName: 'Lorem ipsum dolor sit amet',
       taskDescription:
@@ -28,5 +32,17 @@ class Tasks {
     tasks.add(newTask);
   }
 
-  List<Task> get getAllTasks => tasks;
+  void trackingTasks() {
+    remainingTask = 0;
+    completedTask = 0;
+
+    for (Task task in tasks) {
+      if (task.isTaskCompleted == true) {
+        completedTask += 1;
+      } else {
+        remainingTask += 1;
+      }
+    }
+    notifyListeners();
+  }
 }

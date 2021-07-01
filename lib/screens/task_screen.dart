@@ -6,7 +6,7 @@ import 'package:todolist_app/theme/decoration.dart';
 import 'package:todolist_app/theme/text_style.dart';
 import 'package:todolist_app/screens/add_task_screen.dart';
 import 'package:todolist_app/data/tasks.dart';
-import 'package:todolist_app/model/task.dart';
+import 'package:provider/provider.dart';
 
 class TaskScreen extends StatefulWidget {
   @override
@@ -14,10 +14,6 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
-  List<Task> tasks = Tasks.tasks;
-  int? taskCompleted = 0;
-  int? taskRemaining = 0;
-
   @override
   Widget build(BuildContext context) {
     ScreenUtil().setWidth(MediaQuery.of(context).size.width);
@@ -34,7 +30,7 @@ class _TaskScreenState extends State<TaskScreen> {
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: AddTaskScreen(addTaskCallback: (newTask) {
-                  tasks.add(newTask);
+                  Provider.of<Tasks>(context).tasks.add(newTask);
                 }),
               ),
             ),
@@ -82,7 +78,7 @@ class _TaskScreenState extends State<TaskScreen> {
                   child: Container(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      '$taskCompleted tasks completed',
+                      '${Provider.of<Tasks>(context).completedTask} tasks completed',
                       textAlign: TextAlign.left,
                       style: taskTrackerTextStyle,
                     ),
@@ -96,7 +92,7 @@ class _TaskScreenState extends State<TaskScreen> {
                   child: Container(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      '$taskRemaining tasks remaining',
+                      '${Provider.of<Tasks>(context).remainingTask} tasks remaining',
                       textAlign: TextAlign.left,
                       style: taskTrackerTextStyle,
                     ),
@@ -107,17 +103,7 @@ class _TaskScreenState extends State<TaskScreen> {
                 flex: 0.75.sh.toInt(),
                 child: Container(
                   decoration: tasksListDecoration,
-                  child: TasksList(
-                    tasks: tasks,
-                    taskTrackerCallback: (trackedTasks) {
-                      taskCompleted = trackedTasks['completed'];
-                      taskRemaining = trackedTasks['remaining'];
-                      if (trackedTasks['initialized'] == true) {
-                        setState(() {});
-                      }
-                    },
-                    //onPressed:
-                  ),
+                  child: TasksList(),
                 ),
               ),
             ],
