@@ -5,14 +5,27 @@ import 'package:todolist_app/theme/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todolist_app/theme/color_palette.dart';
 import 'package:todolist_app/model/task_color.dart';
+import 'package:todolist_app/model/task.dart';
 
 class AddTaskScreen extends StatefulWidget {
+  final Function(Task) addTaskCallback;
+
+  AddTaskScreen({required this.addTaskCallback});
+
   @override
   _AddTaskScreenState createState() => _AddTaskScreenState();
 }
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
   List<bool> _selections = List.generate(3, (_) => false);
+  String taskTitle = '';
+  String taskDescription = '';
+  TaskColor taskColor = TaskColors.grey;
+  Map<int, TaskColor> toggledTaskColors = {
+    0: TaskColors.purple,
+    1: TaskColors.cyan,
+    2: TaskColors.orange
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +53,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               autofocus: true,
               //textAlign: TextAlign.center,
               cursorColor: bottomInsetTextFieldCursorColor,
+              onChanged: (updatedTitle) {
+                taskTitle = updatedTitle;
+              },
             ),
             Padding(
               padding: EdgeInsets.only(top: 0.02.sh),
@@ -52,6 +68,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               autofocus: true,
               //textAlign: TextAlign.center,
               cursorColor: bottomInsetTextFieldCursorColor,
+              onChanged: (updatedDescription) {
+                taskDescription = updatedDescription;
+              },
             ),
             Padding(
               padding: EdgeInsets.only(top: 0.02.sh),
@@ -106,8 +125,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 renderBorder: false,
                 isSelected: _selections,
                 onPressed: (index) {
-                  print(index);
                   setState(() {
+                    taskColor = toggledTaskColors[index] ?? TaskColors.grey;
                     _selections = List.generate(3, (_) => false);
                     _selections[index] = !_selections[index];
                   });
@@ -118,7 +137,14 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               padding:
                   EdgeInsets.symmetric(horizontal: 0.0.sw, vertical: 0.02.sh),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  widget.addTaskCallback(Task(
+                    taskName: taskTitle,
+                    taskDescription: taskDescription,
+                    taskColor: taskColor,
+                  ));
+                  Navigator.pop(context);
+                },
                 child: Text('Add'),
                 style: ButtonStyle(
                   backgroundColor:
