@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'dart:math' as math;
+import 'package:todolist_app/widgets/task_card.dart';
+import 'package:todolist_app/theme/task_color.dart';
+import 'package:todolist_app/theme/decoration.dart';
 
 class TaskScreen extends StatelessWidget {
   const TaskScreen({Key? key}) : super(key: key);
@@ -16,24 +19,7 @@ class TaskScreen extends StatelessWidget {
         child: Icon(Icons.add_rounded),
       ),
       body: Container(
-        decoration: BoxDecoration(
-          gradient: RadialGradient(
-            colors: [
-              Color(0xff3BF2EB),
-              Color(0xff6C41E4),
-              Color(0xffFE9B38),
-            ],
-            stops: [
-              0.25,
-              0.6,
-              1.4,
-            ],
-            center: Alignment(1.0, 0.4),
-            radius: 1.8,
-            // begin: Alignment(-0.8, -1.0),
-            // end: Alignment(1.0, 1.2),
-          ),
-        ),
+        decoration: mainBackground,
         child: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,25 +92,28 @@ class TaskScreen extends StatelessWidget {
                     ],
                   ),
                   child: ListView(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 0.02.sw, vertical: 0.011.sh),
                     children: [
-                      ListTile(
-                        title: Text(
-                          'My task 1',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: 'Barlow',
-                          ),
-                        ),
-                        leading: Checkbox(
-                          value: false,
-                          onChanged: (value) {},
-                        ),
-                        hoverColor: Colors.blue,
-                        tileColor: Colors.green,
-                        selectedTileColor: Colors.greenAccent,
+                      TaskCard(
+                        taskTitle: 'Lorem ipsum dolor sit amet',
+                        taskSubtitle:
+                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed leo luctus, commodo enim varius, ullamcorper neque. Vivamus ac arcu odio. Donec volutpat tempus elit, ac iaculis elit iaculis non.',
                       ),
-                      ListTile(),
+                      TaskCard(
+                        taskTitle: 'My task 2',
+                        taskSubtitle:
+                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                        taskColor: TaskColor.cyan,
+                      ),
+                      TaskCard(
+                        taskTitle: 'My task 3',
+                        taskColor: TaskColor.orange,
+                      ),
+                      TaskCard(
+                        taskTitle: 'My task 4',
+                        taskColor: TaskColor.purple,
+                      ),
                     ],
                   ),
                 ),
