@@ -6,12 +6,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todolist_app/theme/color_palette.dart';
 import 'package:todolist_app/model/task_color.dart';
 import 'package:todolist_app/model/task.dart';
+import 'package:provider/provider.dart';
+import 'package:todolist_app/data/tasks.dart';
 
 class AddTaskScreen extends StatefulWidget {
-  final Function(Task) addTaskCallback;
-
-  AddTaskScreen({required this.addTaskCallback});
-
   @override
   _AddTaskScreenState createState() => _AddTaskScreenState();
 }
@@ -138,7 +136,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   EdgeInsets.symmetric(horizontal: 0.0.sw, vertical: 0.02.sh),
               child: ElevatedButton(
                 onPressed: () {
-                  widget.addTaskCallback(Task(
+                  Provider.of<Tasks>(context, listen: false).addTask(Task(
                     taskName: taskTitle,
                     taskDescription: taskDescription,
                     taskColor: taskColor,
