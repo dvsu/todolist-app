@@ -8,6 +8,7 @@ class TaskCard extends StatelessWidget {
   final String? taskSubtitle;
   final TaskColor? taskColor;
   final Function(bool?) onPressed;
+  final VoidCallback onLongPressed;
   final bool isChecked;
 
   TaskCard(
@@ -15,7 +16,8 @@ class TaskCard extends StatelessWidget {
       this.taskSubtitle,
       this.taskColor,
       required this.isChecked,
-      required this.onPressed});
+      required this.onPressed,
+      required this.onLongPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +43,7 @@ class TaskCard extends StatelessWidget {
         ),
       ),
       child: ListTile(
+        onLongPress: onLongPressed,
         visualDensity: VisualDensity.comfortable,
         horizontalTitleGap: 1.0,
         contentPadding: EdgeInsets.only(

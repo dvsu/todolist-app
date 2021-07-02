@@ -21,6 +21,10 @@ class TasksList extends StatelessWidget {
               Provider.of<Tasks>(context, listen: false).updateTask(
                   Provider.of<Tasks>(context, listen: false).tasks[index]);
             },
+            onLongPressed: () {
+              Provider.of<Tasks>(context, listen: false).deleteTask(
+                  Provider.of<Tasks>(context, listen: false).tasks[index]);
+            },
           );
         },
         itemCount: Provider.of<Tasks>(context).taskCount(),

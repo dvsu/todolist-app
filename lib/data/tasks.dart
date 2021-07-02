@@ -30,6 +30,7 @@ class Tasks extends ChangeNotifier {
   ];
 
   UnmodifiableListView<Task> get tasks {
+    trackingTasks();
     return UnmodifiableListView(_tasks);
   }
 
@@ -58,6 +59,13 @@ class Tasks extends ChangeNotifier {
 
   void updateTask(Task targetTask) {
     targetTask.isTaskCompleted = !targetTask.isTaskCompleted;
+    trackingTasks();
+    notifyListeners();
+  }
+
+  void deleteTask(Task targetTask) {
+    _tasks.remove(targetTask);
+    trackingTasks();
     notifyListeners();
   }
 }
