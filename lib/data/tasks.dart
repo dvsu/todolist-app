@@ -55,4 +55,9 @@ class Tasks extends ChangeNotifier {
       }
     }
   }
+
+  void updateTask(Task targetTask) {
+    targetTask.isTaskCompleted = !targetTask.isTaskCompleted;
+    notifyListeners();
+  }
 }

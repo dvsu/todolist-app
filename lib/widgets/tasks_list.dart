@@ -11,19 +11,15 @@ class TasksList extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 0.02.sw, vertical: 0.012.sh),
       child: ListView.builder(
         itemBuilder: (context, index) {
+          final task = Provider.of<Tasks>(context).tasks[index];
           return TaskCard(
-            taskTitle: Provider.of<Tasks>(context).tasks[index].taskName,
-            taskSubtitle:
-                Provider.of<Tasks>(context).tasks[index].taskDescription,
-            taskColor: Provider.of<Tasks>(context).tasks[index].taskColor,
-            isChecked: Provider.of<Tasks>(context).tasks[index].isTaskCompleted,
+            taskTitle: task.taskName,
+            taskSubtitle: task.taskDescription,
+            taskColor: task.taskColor,
+            isChecked: task.isTaskCompleted,
             onPressed: (bool? updatedState) {
-              // setState(
-              //   () {
-              //     Provider.of<Tasks>(context).tasks[index].isTaskCompleted =
-              //         updatedState ?? false;
-              //   },
-              // );
+              Provider.of<Tasks>(context, listen: false).updateTask(
+                  Provider.of<Tasks>(context, listen: false).tasks[index]);
             },
           );
         },
